@@ -1,7 +1,7 @@
 import * as React from "react"
-import { DashboardBody } from "../components/dashboard/body"
-import { Dashboard } from "../components/dashboard/dashboard"
-import { useGetCalendar } from "../hooks/data/calendar/use-get-calendar"
+import { DashboardBody } from "@/components/dashboard/body"
+import { Dashboard } from "@/components/dashboard/dashboard"
+import { useGetCalendar } from "@/hooks/data/calendar/use-get-calendar"
 
 
 export const Calendar = () => {
