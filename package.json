@@ -2,6 +2,12 @@
 	"name": "smart-home-display",
 	"version": "0.1.0",
 	"private": true,
+	"scripts": {
+		"dev": "craco start",
+		"build": "craco build",
+		"test": "craco test",
+		"start": "serve -s build"
+	},
 	"dependencies": {
 		"@doist/todoist-api-typescript": "^3.0.1",
 		"@tanstack/react-query": "^5.14.0",
@@ -23,13 +29,6 @@
 		"typescript": "^5.3.3",
 		"web-vitals": "^2.1.4"
 	},
-	"scripts": {
-		"dev": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject",
-		"start": "serve -s build"
-	},
 	"eslintConfig": {
 		"extends": [
 			"react-app",
@@ -50,6 +49,7 @@
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+		"@craco/craco": "^7.1.0",
 		"@tanstack/eslint-plugin-query": "^5.12.1",
 		"@typescript-eslint/eslint-plugin": "^6.14.0",
 		"@typescript-eslint/parser": "^6.14.0",
