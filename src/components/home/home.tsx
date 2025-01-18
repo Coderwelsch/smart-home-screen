@@ -1,6 +1,6 @@
 import * as React from "react"
-import { DashboardBody } from "../components/dashboard/body"
-import { Dashboard } from "../components/dashboard/dashboard"
+import { DashboardBody } from "@/components/dashboard/body"
+import { Dashboard } from "@/components/dashboard/dashboard"
 
 
 interface HomeProps {
