@@ -1,5 +1,6 @@
 import { SVGProps } from "react"
 import * as React from "react"
+
 const IconToDos = (props: SVGProps<SVGSVGElement>) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -40,4 +41,5 @@ const IconToDos = (props: SVGProps<SVGSVGElement>) => (
 		</g>
 	</svg>
 )
+
 export default IconToDos
