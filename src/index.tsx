@@ -6,7 +6,7 @@ import "./index.css"
 import { QueryProvider } from "./lib/query-provider"
 import { Home } from "./pages"
 import { Calendar } from "./pages/calendar"
-import { ToDos } from "./pages/todos"
+import { Todoist } from "./components/todoist/todoist"
 import reportWebVitals from "./reportWebVitals"
 
 
@@ -15,7 +15,7 @@ const routes: RouteObject[] = [
 ]
 
 if (process.env.REACT_APP_TODOIST_API_KEY) {
-	routes.push({ path: "/todos", element: <ToDos /> })
+	routes.push({ path: "/todoist", element: <Todoist /> })
 }
 
 if (process.env.REACT_APP_CALENDAR_WEBCAL_URLS) {

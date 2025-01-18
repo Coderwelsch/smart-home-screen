@@ -1,13 +1,15 @@
-import { useEffect, useRef } from "react"
+import { useSmoothAutoScroll } from "@/hooks/ui/use-smooth-auto-scroll"
+import { classNames } from "@/lib"
+
 import * as React from "react"
+import { useEffect, useRef } from "react"
 import Markdown from "react-markdown"
-import { DashboardBody } from "../components/dashboard/body"
-import { Dashboard } from "../components/dashboard/dashboard"
-import IconCalendar2DateFill from "../components/icons/calendar-date-fill"
-import { useGetProjects } from "../hooks/data/todoist/use-get-projects"
-import { useGetTasks } from "../hooks/data/todoist/use-get-tasks"
-import { useSmoothAutoScroll } from "../hooks/ui/use-smooth-auto-scroll"
-import { classNames } from "../lib"
+
+import { DashboardBody } from "../dashboard/body"
+import { Dashboard } from "../dashboard/dashboard"
+import IconCalendar2DateFill from "../icons/calendar-date-fill"
+import { useGetProjects } from "./hooks/use-get-projects"
+import { useGetTasks } from "./hooks/use-get-tasks"
 
 
 interface ProjectColorClassNames {
@@ -19,8 +21,8 @@ interface ProjectColorClassNames {
 
 const COLOR_MAP: Record<string, ProjectColorClassNames> = {
 	"charcoal": {
-		root: "bg-gray-700 border border-gray-400 text-gray-100",
-		checkbox: "border bg-gray-50 border-gray-600",
+		root: "border border-gray-400 text-gray-100",
+		checkbox: "border border-gray-400",
 		badge: "bg-gray-400 border text-gray-800",
 	},
 	"mint_green": {
@@ -54,14 +56,10 @@ const COLOR_MAP: Record<string, ProjectColorClassNames> = {
 	// "peach": "bg-orange-300"
 }
 
-
-interface ToDosProps {
-}
-
-
-export const ToDos = (props: ToDosProps) => {
+export const Todoist = () => {
 	const { data: projects, ...projectsQuery } = useGetProjects()
 	const { data: tasks, ...tasksQuery } = useGetTasks(projects?.map((project) => project.id) || null)
+
 	const scrollRef = useRef<HTMLDivElement>(null)
 
 	useSmoothAutoScroll({

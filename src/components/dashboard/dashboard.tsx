@@ -25,7 +25,7 @@ const InternalDashboard = ({ children, loading = false }: DashboardProps, ref: F
 						<Navigation.Item href="/" IconBefore={ IconHome }>Home</Navigation.Item>
 
 						{ TODOIST_API_KEY && (
-							<Navigation.Item href="/todos" IconBefore={ IconToDos }>ToDos</Navigation.Item>
+							<Navigation.Item href="/todoist" IconBefore={ IconToDos }>ToDos</Navigation.Item>
 						) }
 
 						{ CALENDAR_WEBCAL_URLS.length > 0 && (
