@@ -1,6 +1,6 @@
 # Smart Home Display (Frontend)
 
-![teaser-img.png](docs/teaser-img.png)
+![teaser.gif](docs/teaser.gif)
 
 > Simple smart home screen frontend. It is a static web application that can be run on a Raspberry Pi or any other device that can run a web server. To prevent CORS issues you need to run the included proxy server.
 
