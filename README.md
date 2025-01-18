@@ -1,4 +1,4 @@
-# Smart Home Screen Frontend
+# Smart Home Display (Frontend)
 
 ![teaser-img.png](docs/teaser-img.png)
 
