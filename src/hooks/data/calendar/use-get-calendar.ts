@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { CALENDAR_WEBCAL_URLS } from "../../../lib/constants"
+import { CALENDAR_WEBCAL_URLS, PROXY_SERVER_URL } from "@/lib/constants"
 
 
 interface UseGetCalendarProps {
@@ -14,8 +14,10 @@ export const useGetCalendar = (props: UseGetCalendarProps) => {
 
 			console.log("urls", urls)
 
-			const responses = await Promise.all(urls.map((url) => fetch(url)))
+			const responses = await Promise.all(urls.map((url) => fetch(`${PROXY_SERVER_URL}/${url}`)))
+
 			const texts = await Promise.all(responses.map((response) => response.text()))
+
 			const parsed = texts.map((text) => {
 				const lines = text.split("\n")
 
