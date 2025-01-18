@@ -3,20 +3,11 @@
 @tailwind utilities;
 
 body {
-	width: 100%;
-	min-height: 100vh;
-	margin: 0;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	@apply bg-orange-700 flex flex-col justify-center items-center m-0 w-full min-h-screen;
 
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-
-	background-color: #953f14;
 }
 
 code {
@@ -24,6 +15,10 @@ code {
 }
 
 main {
+	@apply w-screen h-screen;
+}
+
+main.development {
 	width: 800px;
 	height: 480px;
 }

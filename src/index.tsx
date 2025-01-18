@@ -1,3 +1,4 @@
+import { IS_DEV } from "@/lib/constants"
 import * as React from "react"
 import * as ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom"
@@ -30,7 +31,7 @@ const root = ReactDOM.createRoot(document.getElementById("root")!)
 
 root.render(
 	<React.StrictMode>
-		<main>
+		<main className={IS_DEV ? "development" : undefined}>
 			<QueryProvider>
 				<RouterProvider router={ router } />
 			</QueryProvider>
