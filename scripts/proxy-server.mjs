@@ -25,41 +25,39 @@ const parseCalData = (calData) => {
 			return acc
 		}
 
-		const rrule = event.component.getFirstPropertyValue("rrule")
+		const dtstart = vevent.getFirstPropertyValue("dtstart")
+		const recur = vevent.getFirstPropertyValue("rrule")
+		const iterator = recur.iterator(dtstart)
 
-		if (rrule) {
-			const recur = new ical.Recur(rrule)
+		const rangeStart = ical.Time.now()
 
-			const now = ical.Time.now()
-			const inSevenDays = ical.Time.fromData({
-				year: now.year,
-				month: now.month,
-				day: now.day + 7,
-			})
-			const recurEvent = recur.getNextOccurrence(now, inSevenDays)
+		const rangeEnd = ical.Time.now()
+		rangeEnd.addDuration(ical.Duration.fromData({ weeks: 1 }))
 
-			if (!recurEvent) {
-				return acc
+		for (
+			let nextOccurence = iterator.next();
+			nextOccurence && nextOccurence.compare(rangeEnd) < 0;
+			nextOccurence = iterator.next()
+		) {
+			if (nextOccurence.compare(rangeStart) < 0) {
+				continue
 			}
 
-			const endTime = new Date(
-				recurEvent.toJSDate() + event.duration.toSeconds() * 1000,
-			)
+			const newEvent = new ical.Event(vevent)
+			newEvent.startDate = nextOccurence
 
-			console.log("recurEvent end time", event.summary, event.startDate.toJSDate())
-			process.exit(0)
+			newEvent.endDate = newEvent.startDate.clone()
+			newEvent.endDate.addDuration(newEvent.duration)
 
 			acc.push({
-				summary: event.summary,
-				startDate: recurEvent.toJSDate(),
-				endDate: new Date(endTime),
+				summary: newEvent.summary,
+				startDate: newEvent.startDate.toJSDate(),
+				endDate: newEvent.endDate.toJSDate(),
 			})
 		}
 
 		return acc
 	}, [])
-
-	console.log("events", recurringEvents)
 
 	const mappedNormalEvents = vevents.map((vevent) => {
 		const event = new ical.Event(vevent)
