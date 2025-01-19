@@ -20,7 +20,7 @@ if (process.env.REACT_APP_TODOIST_API_KEY) {
 	routes.push({ path: "/todoist", element: <Todoist /> })
 }
 
-if (process.env.REACT_APP_CALENDAR_WEBCAL_URLS) {
+if (process.env.REACT_APP_CALENDAR_WEBCAL_URL) {
 	routes.push({ path: "/calendar", element: <Calendar /> })
 }
 

@@ -1,41 +1,18 @@
-import { EventEntry } from "@/components/calendar/event-entry"
+import { CalEvent } from "@/components/calendar/types"
 import { WeekdayOverview } from "@/components/calendar/weekday-overview"
 import * as React from "react"
 import { DashboardBody } from "@/components/dashboard/body"
 import { Dashboard } from "@/components/dashboard/dashboard"
 import { useGetCalendar } from "@/components/calendar/hooks/use-get-calendar"
 
-const getStartOfThisWeek = () => {
-	const today = new Date()
-	const dayOfWeek = today.getDay()
-	const startOfThisWeek = new Date(today)
-
-	startOfThisWeek.setDate(startOfThisWeek.getDate() - dayOfWeek)
-	startOfThisWeek.setHours(0, 0, 0, 0)
-
-	return startOfThisWeek
-}
-
-const getEndOfThisWeek = () => {
-	const today = new Date()
-	const dayOfWeek = today.getDay()
-	const endOfThisWeek = new Date(today)
-
-	endOfThisWeek.setDate(endOfThisWeek.getDate() + (6 - dayOfWeek))
-	endOfThisWeek.setHours(23, 59, 59, 999)
-
-	return endOfThisWeek
-}
-
 export const Calendar = () => {
-	const { data, isLoading } = useGetCalendar({
-		startDate: getStartOfThisWeek(),
-		endDate: getEndOfThisWeek(),
-	})
+	const { data, isLoading } = useGetCalendar()
 
 	const mappedEventsToWeekDays = data?.reduce(
 		(acc, event) => {
-			const day = event.startDate.getDay()
+			const day = new Date(event.startDate).getDay()
+
+			console.log(event.summary, "map day to event", day, new Date(event.startDate))
 
 			if (!acc[day]) {
 				acc[day] = []
@@ -45,15 +22,9 @@ export const Calendar = () => {
 
 			return acc
 		},
-		{} as Record<
-			number,
-			{
-				summary: string
-				startDate: Date
-				endDate: Date
-			}[]
-		>,
+		{} as Record<number, CalEvent[]>,
 	)
+
 	const mappedEventsArray = Object.entries(mappedEventsToWeekDays || {})
 
 	return (
