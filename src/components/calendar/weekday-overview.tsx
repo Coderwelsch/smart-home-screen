@@ -26,9 +26,9 @@ export const WeekdayOverview = ({ day, events }: WeekdayOverviewProps) => {
 		>
 			<h2 className={"text-lg font-bold text-gray-200"}>{weekDay}</h2>
 
-			{events.map((event) => (
+			{events.map((event, index) => (
 				<EventEntry
-					key={event.summary}
+					key={index}
 					summary={event.summary}
 					startDate={new Date(event.startDate)}
 					endDate={new Date(event.endDate)}
