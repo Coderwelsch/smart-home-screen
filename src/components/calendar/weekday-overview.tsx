@@ -24,7 +24,9 @@ export const WeekdayOverview = ({ day, events }: WeekdayOverviewProps) => {
 				!isToday && !isTomorrow && "opacity-25",
 			)}
 		>
-			<h2 className={"text-lg font-bold text-gray-200"}>{weekDay}</h2>
+			<h2 className={"text-lg font-bold text-gray-200"}>
+				{isToday ? "Today" : isTomorrow ? "Tomorrow" : weekDay}
+			</h2>
 
 			{events.map((event, index) => (
 				<EventEntry
@@ -32,7 +34,9 @@ export const WeekdayOverview = ({ day, events }: WeekdayOverviewProps) => {
 					summary={event.summary}
 					startDate={new Date(event.startDate)}
 					endDate={new Date(event.endDate)}
+					allDay={event.allDay}
 					notes={event.notes}
+					calendar={event.calendar}
 				/>
 			))}
 		</div>

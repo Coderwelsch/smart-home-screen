@@ -12,5 +12,6 @@ export const useGetCalendar = () => {
 
 			return calData
 		},
+		refetchInterval: 1000 * 60 * 5, // 5 minutes
 	})
 }

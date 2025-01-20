@@ -6,13 +6,17 @@ import { Dashboard } from "@/components/dashboard/dashboard"
 import { useGetCalendar } from "@/components/calendar/hooks/use-get-calendar"
 
 export const Calendar = () => {
-	const { data, isLoading } = useGetCalendar()
+	const { data, isLoading, error } = useGetCalendar()
+	const currentDay = new Date().getDay()
 
 	const mappedEventsToWeekDays = data?.reduce(
 		(acc, event) => {
 			const day = new Date(event.startDate).getDay()
 
-			console.log(event.summary, "map day to event", day, new Date(event.startDate))
+			// Skip events that have already passed
+			if (day < currentDay) {
+				return acc
+			}
 
 			if (!acc[day]) {
 				acc[day] = []
@@ -28,11 +32,17 @@ export const Calendar = () => {
 	const mappedEventsArray = Object.entries(mappedEventsToWeekDays || {})
 
 	return (
-		<Dashboard loading={isLoading}>
+		<Dashboard loading={isLoading && !error}>
 			<DashboardBody>
 				<h1 className="mb-4 text-2xl font-bold text-gray-200">
 					Calendar
 				</h1>
+
+				{error && (
+					<div className={"bg-red-500/20 border-2 border-red-500 text-white px-4 py-2 rounded-lg"}>
+						<p className={"font-bold"}>{ error.message }</p>
+					</div>
+				)}
 
 				<div className={"flex flex-col gap-4"}>
 					{mappedEventsArray.map(([day, events], index) => (

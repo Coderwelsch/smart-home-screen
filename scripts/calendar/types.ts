@@ -3,6 +3,5 @@ export interface CalEvent {
 	startDate: Date
 	endDate: Date
 	allDay?: boolean
-	notes?: string
 	calendar?: string
 }
