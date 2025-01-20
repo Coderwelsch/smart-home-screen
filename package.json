@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"proxy": "node scripts/proxy-server.mjs",
+		"api": "node --import=tsx scripts/api.ts",
 		"dev": "craco start",
 		"build": "craco build",
 		"test": "craco test",
@@ -54,6 +54,7 @@
 		]
 	},
 	"devDependencies": {
+		"tsx": "^4.19.2",
 		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
 		"@craco/craco": "^7.1.0",
 		"@tanstack/eslint-plugin-query": "^5.12.1",
