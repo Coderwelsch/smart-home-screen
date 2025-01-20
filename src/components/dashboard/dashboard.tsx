@@ -1,7 +1,7 @@
 import IconCalendar2DateFill from "@/components/icons/calendar-date-fill"
 import * as React from "react"
 import { ForwardedRef, forwardRef, ReactNode } from "react"
-import { CALENDAR_WEBCAL_URL, TODOIST_API_KEY } from "@/lib/constants"
+import { CALENDAR_WEBCAL_URLS, TODOIST_API_KEY } from "@/lib/constants"
 import IconHome from "../icons/home"
 import IconToDos from "../icons/todos"
 import { LoadingIndicator } from "../loading-indicator/loading-indicator"
@@ -38,7 +38,7 @@ const InternalDashboard = (
 							</Navigation.Item>
 						)}
 
-						{CALENDAR_WEBCAL_URL.length > 0 && (
+						{CALENDAR_WEBCAL_URLS.length > 0 && (
 							<Navigation.Item
 								href="/calendar"
 								IconBefore={IconCalendar2DateFill}
