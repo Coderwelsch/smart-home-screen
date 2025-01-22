@@ -19,8 +19,9 @@ const getRecurringEventIterations = (vevents: ical.Component[]): CalEvent[] => {
 
 		const iterator = recur.iterator(dtstart)
 
-		const rangeStart = ical.Time.now()
-
+		const rangeStart = ical.Time.fromData({
+			day: new Date().getDate(), // start from today, 00:00 AM
+		})
 		const rangeEnd = ical.Time.now()
 		rangeEnd.addDuration(ical.Duration.fromData({ weeks: 1 }))
 

@@ -1,12 +1,11 @@
 import { parse } from "./parse"
 
-
 export const getLatestCalendarData = async () => {
 	const urls = process.env.REACT_APP_CALENDAR_WEBCAL_URLS || ""
-	const webcalNames = (process.env.REACT_APP_CALENDAR_WEBCAL_NAMES || "").split(",")
-	const webcalUrls = urls.split(
-		","
-	).map((url) => {
+	const webcalNames = (
+		process.env.REACT_APP_CALENDAR_WEBCAL_NAMES || ""
+	).split(",")
+	const webcalUrls = urls.split(",").map((url) => {
 		if (url.startsWith("webcal")) {
 			return url.replace("webcal", "https")
 		}
@@ -16,9 +15,7 @@ export const getLatestCalendarData = async () => {
 
 	const parsedData = await Promise.all(
 		webcalUrls.map(async (url, index) => {
-			const response = await fetch(
-				url
-			)
+			const response = await fetch(url)
 			const data = await response.text()
 			const calName = webcalNames[index] || "Unknown"
 
@@ -26,7 +23,7 @@ export const getLatestCalendarData = async () => {
 				...event,
 				calendar: calName,
 			}))
-		})
+		}),
 	).then((data) => data.flat())
 
 	const yesterday = new Date().setDate(new Date().getDate() - 1)
@@ -43,6 +40,6 @@ export const getLatestCalendarData = async () => {
 	})
 
 	return filtered.sort(
-		(a, b) => a.startDate.getTime() - b.startDate.getTime()
+		(a, b) => a.startDate.getTime() - b.startDate.getTime(),
 	)
 }
