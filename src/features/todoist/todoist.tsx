@@ -19,7 +19,7 @@ export const Todoist = () => {
 
 	usePageBasedScrolling({
 		container: scrollRef.current,
-		pageDuration: 4000,
+		pageDuration: 6000,
 		active: !isLoading,
 		onCycle: () => setIsCycleDone(true),
 	})
