@@ -10,8 +10,11 @@
 This project includes the following modules which you can enable or disable by setting the corresponding .env variables:
 
 - Home Screen
+  - does nothing currently except showing the welcome message
 - Todoist Overview
+  - shows all uncompleted tasks and sub tasks
 - Calendar (ICS) Overview
+  - shows events of the next 7 days
 
 Currently the app automatically rotates through the modules every ~ 30 seconds and scrolls through the content if it is too long to fit on the screen.
 
@@ -55,4 +58,6 @@ Run `yarn build` to build the project. The build artifacts will be stored in the
 
 ## Run
 
-Run `yarn serve` to start the proxy server and serve the static files (e.g. on your raspberry pi).
+Run `yarn serve` to start the proxy server and serve the static files (e.g. on your raspberry pi). The app will be available at `http://localhost:3000`.
+
+On crash the app will automatically restart by the help of `nodemon`.
