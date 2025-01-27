@@ -40,32 +40,11 @@ Set this variable to define the names of the calendars. The names should be sepa
 
 ### `REACT_APP_CALENDAR_WEBCAL_COLORS`
 
+Supported colors:
+
+`red`,`orange`,`amber`,`yellow`,`lime`,`green`,`emerald`,`teal`,`cyan`,`sky`,`blue`,`indigo`,`violet`,`purple`,`fuchsia`,`pink`,`rose`,`slate`,`gray`,`zinc`,`neutral`, `stone`
+
 Set this variable to define the colors of the calendars. The colors should be separated by a comma and the order should match the order of the URLs in `REACT_APP_CALENDAR_WEBCAL_URLS`.
-
-Supported colors are:
-
-- $\color{red}{\textsf{red}}$
-- $\color{orange}{\textsf{orange}}$
-- $\color{yellow}{\textsf{yellow}}$
-- $\color{amber}{\textsf{amber}}$
-- $\color{lime}{\textsf{lime}}$
-- $\color{green}{\textsf{green}}$
-- $\color{rgb(16,185,129)}{\textsf{emerald}}$
-- $\color{rgb(20,184,166)}{\textsf{teal}}$
-- $\color{rgb(6,182,212)}{\textsf{cyan}}$
-- $\color{rgb(14,165,233)}{\textsf{light-blue}}$
-- $\color{rgb(59,130,246)}{\textsf{blue}}$
-- $\color{rgb(99,102,241)}{\textsf{indigo}}$
-- $\color{rgb(139,92,246)}{\textsf{violet}}$
-- $\color{rgb(168,85,247)}{\textsf{purple}}$
-- fuchsia
-- pink
-- rose
-- slate
-- gray
-- zinc
-- neutral
-- stone
 
 ## Build
 
