@@ -5,7 +5,27 @@ import { ReactNode } from "react"
 
 export const eventEntryStyles = {
 	red: "text-red-300 bg-red-500/10",
+	orange: "text-orange-300 bg-orange-500/10",
+	amber: "text-amber-300 bg-amber-500/10",
+	yellow: "text-yellow-300 bg-yellow-500/10",
+	lime: "text-lime-300 bg-lime-500/10",
+	green: "text-green-300 bg-green-500/10",
+	emerald: "text-emerald-300 bg-emerald-500/10",
+	teal: "text-teal-300 bg-teal-500/10",
+	cyan: "text-cyan-300 bg-cyan-500/10",
+	sky: "text-sky-300 bg-sky-500/10",
 	blue: "text-blue-300 bg-blue-500/10",
+	indigo: "text-indigo-300 bg-indigo-500/10",
+	violet: "text-violet-300 bg-violet-500/10",
+	purple: "text-purple-300 bg-purple-500/10",
+	fuchsia: "text-fuchsia-300 bg-fuchsia-500/10",
+	pink: "text-pink-300 bg-pink-500/10",
+	rose: "text-rose-300 bg-rose-500/10",
+	slate: "text-slate-300 bg-slate-500/10",
+	gray: "text-gray-300 bg-gray-500/10",
+	zinc: "text-zinc-300 bg-zinc-500/10",
+	neutral: "text-neutral-300 bg-neutral-500/10",
+	stone: "text-stone-300 bg-stone-500/10",
 }
 
 interface EventEntryProps extends CalEvent {
