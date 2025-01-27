@@ -1,42 +1,27 @@
 import { IS_DEV } from "@/lib/constants"
+import { router } from "@/lib/routes"
 import * as React from "react"
 import * as ReactDOM from "react-dom/client"
-import {
-	createBrowserRouter,
-	RouteObject,
-	RouterProvider,
-} from "react-router-dom"
+import { RouterProvider } from "react-router-dom"
 
 import "./index.css"
 import { QueryProvider } from "./lib/query-provider"
-import { Home } from "./components/home/home"
-import { Calendar } from "./components/calendar/calendar"
-import { Todoist } from "./components/todoist/todoist"
 import reportWebVitals from "./reportWebVitals"
 
-const routes: RouteObject[] = [{ path: "/", element: <Home />, index: true }]
-
-if (process.env.REACT_APP_TODOIST_API_KEY) {
-	routes.push({ path: "/todoist", element: <Todoist /> })
+const App = () => {
+	return (
+		<React.StrictMode>
+			<main className={IS_DEV ? "development" : undefined}>
+				<QueryProvider>
+					<RouterProvider router={router} />
+				</QueryProvider>
+			</main>
+		</React.StrictMode>
+	)
 }
-
-if (process.env.REACT_APP_CALENDAR_WEBCAL_URLS) {
-	routes.push({ path: "/calendar", element: <Calendar /> })
-}
-
-const router = createBrowserRouter(routes)
 
 const root = ReactDOM.createRoot(document.getElementById("root")!)
-
-root.render(
-	<React.StrictMode>
-		<main className={IS_DEV ? "development" : undefined}>
-			<QueryProvider>
-				<RouterProvider router={router} />
-			</QueryProvider>
-		</main>
-	</React.StrictMode>,
-)
+root.render(<App />)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
