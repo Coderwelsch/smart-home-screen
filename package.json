@@ -4,10 +4,10 @@
 	"private": true,
 	"scripts": {
 		"api": "node --import=tsx scripts/api.ts",
-		"dev": "craco start",
+		"dev": "nodemon --exec 'yarn api' & craco start",
 		"build": "craco build",
 		"test": "craco test",
-		"serve": "serve -s build"
+		"serve": "nodemon --exec 'yarn api' & serve -s build"
 	},
 	"dependencies": {
 		"@doist/todoist-api-typescript": "^3.0.1",
@@ -24,6 +24,7 @@
 		"eslint-config-prettier": "^10.0.1",
 		"ical-js-parser": "^0.7.4",
 		"ical.js": "^2.1.0",
+		"nodemon": "^3.1.9",
 		"prettier": "^3.4.2",
 		"prettier-plugin-tailwindcss": "^0.6.10",
 		"react": "^18.2.0",
@@ -62,8 +63,9 @@
 		"eslint": "^8.56.0",
 		"eslint-plugin-react": "^7.33.2",
 		"eslint-plugin-react-hooks": "^4.6.0",
-		"serve": "^14.2.1",
+		"serve": "^14.2.4",
 		"tailwindcss": "^3.3.6",
 		"tsx": "^4.19.2"
-	}
+	},
+	"packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
