@@ -13,6 +13,8 @@ This project includes the following modules which you can enable or disable by s
 - Todoist Overview
 - Calendar (ICS) Overview
 
+Currently the app automatically rotates through the modules every ~ 30 seconds and scrolls through the content if it is too long to fit on the screen.
+
 > ⚠️ More modules will be added in the future. Feel free to contribute!
 
 ## Installation
