@@ -44,12 +44,12 @@ Set this variable to define the colors of the calendars. The colors should be se
 
 Supported colors are:
 
-$\color{red}{\textsf{lorem ipsum}}$
-
-- red
-- orange
-- amber
+- $\color{red}{\textsf{red}}$
+- $\color{orange}{\textsf{orange}}$
+- $\color{yellow}{\textsf{yellow}}$
+- $\color{amber}{\textsf{amber}}$
 - yellow
+- amber
 - lime
 - green
 - emerald
