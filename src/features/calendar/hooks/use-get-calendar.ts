@@ -1,6 +1,6 @@
-import { CalEvent } from "@/components/calendar/types"
-import { useQuery } from "@tanstack/react-query"
+import { CalEvent } from "@/features/calendar/types"
 import { PROXY_SERVER_URL } from "@/lib/constants"
+import { useQuery } from "@tanstack/react-query"
 
 export const useGetCalendar = () => {
 	return useQuery<CalEvent[]>({

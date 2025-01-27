@@ -1,5 +1,5 @@
-import { EventEntry } from "@/components/calendar/event-entry"
-import { CalEvent } from "@/components/calendar/types"
+import { EventEntry } from "@/features/calendar/event-entry"
+import { CalEvent } from "@/features/calendar/types"
 import { classNames } from "@/lib"
 import * as React from "react"
 
@@ -16,19 +16,31 @@ export const WeekdayOverview = ({ day, events }: WeekdayOverviewProps) => {
 	const isToday = new Date().getDay() === day
 	const isTomorrow = new Date().getDay() + 1 === day
 
+	const sortedEvents = events.sort((a, b) => {
+		// sort past events to the bottom otherwise sort by start date
+		if (
+			new Date(a.endDate) < new Date() &&
+			new Date(b.endDate) > new Date()
+		) {
+			return 1
+		}
+
+		return new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+	})
+
 	return (
 		<div
 			key={day}
 			className={classNames(
 				"flex flex-col gap-4",
-				!isToday && !isTomorrow && "opacity-25",
+				// !isToday && !isTomorrow && "opacity-25",
 			)}
 		>
-			<h2 className={"text-lg font-bold text-gray-200"}>
+			<h2 className={"text-sm font-bold text-gray-400"}>
 				{isToday ? "Today" : isTomorrow ? "Tomorrow" : weekDay}
 			</h2>
 
-			{events.map((event, index) => (
+			{sortedEvents.map((event, index) => (
 				<EventEntry
 					key={index}
 					summary={event.summary}

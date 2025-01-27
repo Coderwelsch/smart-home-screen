@@ -1,5 +1,5 @@
-import { useGetCalendarMeta } from "@/components/calendar/hooks/use-get-calendar-meta"
-import { CalEvent } from "@/components/calendar/types"
+import { useGetCalendarMeta } from "@/features/calendar/hooks/use-get-calendar-meta"
+import { CalEvent } from "@/features/calendar/types"
 import { classNames } from "@/lib"
 import { ReactNode } from "react"
 
@@ -34,23 +34,25 @@ export const EventEntry = ({
 	})
 
 	const calMetaData = useGetCalendarMeta(calendar || "")
-
 	const themeStyles = eventEntryStyles[calMetaData.color]
-
-	console.log("themeStyles", themeStyles, calMetaData)
 
 	const isToday = startDate.toDateString() === new Date().toDateString()
 	const timeToStart = startDate.getTime() - new Date().getTime()
 	const isRunning = startDate < new Date() && endDate > new Date()
+	const isPast = endDate < new Date()
 
 	const rtf1 = new Intl.RelativeTimeFormat("en", { style: "short" })
 
 	return (
 		<div
 			className={classNames(
-				"relative flex flex-col rounded-lg border border-neutral-300 px-4 py-4",
+				"relative flex flex-col rounded-lg border border-neutral-300/10 bg-neutral-300/10 px-4 py-4",
 				isRunning && "border-red-500 bg-red-500/10",
-				!isRunning && isToday && "border-blue-500 bg-blue-500/10",
+				!isRunning &&
+					!isPast &&
+					isToday &&
+					"border-blue-500 bg-blue-500/20",
+				isPast && "border-neutral-600 bg-neutral-400/10",
 			)}
 		>
 			{isToday && (
@@ -63,7 +65,7 @@ export const EventEntry = ({
 
 							<h4
 								className={
-									"font-mono font-semibold text-red-100"
+									"font-mono text-sm font-semibold text-red-100"
 								}
 							>
 								Now running
@@ -95,9 +97,7 @@ export const EventEntry = ({
 							<>
 								{startTime} – {endTime}
 							</>
-						) : (
-							startTime
-						)}
+						) : null}
 					</div>
 				)}
 			</div>
