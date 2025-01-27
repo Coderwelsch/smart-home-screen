@@ -1,10 +1,8 @@
 # Smart Home Display (Frontend)
 
-![teaser.gif](docs/teaser.gif)
+![teaser.gif](docs/teaser.png)
 
-> Simple smart home screen frontend. It is a static web application that can be run on a Raspberry Pi or any other device that can run a web server. To prevent CORS issues you need to run the included proxy server.
-
-You can customize the modules by setting up the desired .env variables. 
+> Customizable static web app that can be run on a Raspberry Pi or any other device to show useful data like calendar or todoist infos.
 
 
 ## Features
@@ -15,6 +13,7 @@ This project includes the following modules which you can enable or disable by s
 - Todoist Overview
 - Calendar (ICS) Overview
 
+> ⚠️ More modules will be added in the future. Feel free to contribute!
 
 ## Installation
 
@@ -29,12 +28,46 @@ The `.env` file contains the following variables:
 
 ### `REACT_APP_TODOIST_API_KEY`
 
-Set this variable to your Todoist API key to enable todoist integration.
+Set this variable to your Todoist API key to enable todoist integration. If not set, the todoist module will be disabled.
 
 ### `REACT_APP_CALENDAR_WEBCAL_URLS`
 
-Set this variable to a define a webcal URL to enable calendar integration.
+Set this variable to a define one or multiple webcal URLs to enable the calendar integration. 
 
+### `REACT_APP_CALENDAR_WEBCAL_NAMES`
+
+Set this variable to define the names of the calendars. The names should be separated by a comma and the order should match the order of the URLs in `REACT_APP_CALENDAR_WEBCAL_URLS`.
+
+### `REACT_APP_CALENDAR_WEBCAL_COLORS`
+
+Set this variable to define the colors of the calendars. The colors should be separated by a comma and the order should match the order of the URLs in `REACT_APP_CALENDAR_WEBCAL_URLS`.
+
+Supported colors are:
+
+$\color{red}{\textsf{lorem ipsum}}$
+
+- red
+- orange
+- amber
+- yellow
+- lime
+- green
+- emerald
+- teal
+- cyan
+- sky
+- blue
+- indigo
+- violet
+- purple
+- fuchsia
+- pink
+- rose
+- slate
+- gray
+- zinc
+- neutral
+- stone
 
 ## Build
 
