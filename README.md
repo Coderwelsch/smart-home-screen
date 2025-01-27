@@ -48,8 +48,9 @@ Supported colors are:
 - $\color{orange}{\textsf{orange}}$
 - $\color{yellow}{\textsf{yellow}}$
 - $\color{amber}{\textsf{amber}}$
-- yellow
-- amber
+- $\color{lime}{\textsf{lime}}$
+- $\color{green}{\textsf{green}}$
+- $\color{emerald}{\textsf{emerald}}$
 - lime
 - green
 - emerald
