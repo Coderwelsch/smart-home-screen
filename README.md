@@ -7,7 +7,7 @@
 
 ## Features
 
-This project includes the following modules which you can enable or disable by setting the corresponding .env variables:
+This project includes the following modules which you can enable or disable by setting up the corresponding .env variables:
 
 - Home Screen
   - does nothing currently except showing the welcome message
@@ -30,6 +30,10 @@ Currently the app automatically rotates through the modules every ~ 30 seconds a
 ## Configuration
 
 The `.env` file contains the following variables:
+
+### `REACT_APP_API_PORT`
+
+Set this variable to the port of the backend server. The backend server is used to fetch the data from the external APIs (e.g. ics calendar data).
 
 ### `REACT_APP_TODOIST_API_KEY`
 
@@ -61,3 +65,14 @@ Run `yarn build` to build the project. The build artifacts will be stored in the
 Run `yarn serve` to start the proxy server and serve the static files (e.g. on your raspberry pi). The app will be available at `http://localhost:3000`.
 
 On crash the app will automatically restart by the help of `nodemon`.
+
+## Autostart / Systemd Service
+
+To run the built app on a Raspberry Pi or any other device you can setup a systemd service. You can use the example service files from the `systemd-service` directory.
+
+1. Copy the `kiosk.service` file to `/etc/systemd/system/`
+2. Make sure to setup the systemd paths correctly in the `kiosk.service` file
+3. Run `sudo systemctl enable kiosk.service` to enable the service
+4. Run `sudo systemctl start kiosk.service` to start the service
+5. Run `sudo systemctl status kiosk.service` to check the status of the service
+6. To stop the service run `sudo systemctl stop kiosk.service`
