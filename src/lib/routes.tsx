@@ -1,10 +1,15 @@
 import { Calendar } from "@/features/calendar/calendar"
 import { Home } from "@/features/home/home"
 import { Todoist } from "@/features/todoist/todoist"
+import { DISABLE_HOME_PAGE } from "@/lib/constants"
 import * as React from "react"
 import { createBrowserRouter, RouteObject } from "react-router-dom"
 
-const routes: RouteObject[] = [{ path: "/", element: <Home />, index: true }]
+const routes: RouteObject[] = []
+
+if (!DISABLE_HOME_PAGE) {
+	routes.push({ path: "/", element: <Home />, index: true })
+}
 
 if (process.env.REACT_APP_TODOIST_API_KEY) {
 	routes.push({ path: "/todoist", element: <Todoist /> })

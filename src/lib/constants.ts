@@ -17,4 +17,7 @@ export const CALENDAR_WEBCAL_NAMES = (
 	process.env.REACT_APP_CALENDAR_WEBCAL_NAMES || ""
 ).split(",")
 
+export const DISABLE_HOME_PAGE =
+	process.env.REACT_APP_DISABLE_HOME_PAGE === "true"
+
 export const SCROLL_CONTAINER_ID = "scroll-container"

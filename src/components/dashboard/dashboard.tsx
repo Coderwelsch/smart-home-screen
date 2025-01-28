@@ -1,6 +1,7 @@
 import IconCalendar2DateFill from "@/components/icons/calendar-date-fill"
 import {
 	CALENDAR_WEBCAL_URLS,
+	DISABLE_HOME_PAGE,
 	SCROLL_CONTAINER_ID,
 	TODOIST_API_KEY,
 } from "@/lib/constants"
@@ -29,9 +30,11 @@ const InternalDashboard = (
 					</h1>
 
 					<Navigation>
-						<Navigation.Item href="/" IconBefore={IconHome}>
-							Home
-						</Navigation.Item>
+						{!DISABLE_HOME_PAGE && (
+							<Navigation.Item href="/" IconBefore={IconHome}>
+								Home
+							</Navigation.Item>
+						)}
 
 						{TODOIST_API_KEY && (
 							<Navigation.Item
