@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start the local web server
-yarn --cwd ../ serve &
+yarn --cwd /home/pi/smart-home-screen run serve &
 
 # Wait for the server to start
 sleep 10
