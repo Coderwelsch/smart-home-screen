@@ -4,6 +4,7 @@ import { useGetCalendar } from "@/features/calendar/hooks/use-get-calendar"
 import { CalEvent } from "@/features/calendar/types"
 import { WeekdayOverview } from "@/features/calendar/weekday-overview"
 import { usePageBasedScrolling } from "@/hooks/use-page-based-scrolling"
+import { useRouteCycler } from "@/hooks/use-route-cycler"
 import * as React from "react"
 import { useEffect, useRef, useState } from "react"
 
@@ -19,7 +20,7 @@ export const Calendar = () => {
 		onReachedPageEnd: () => setHasReachedPageEnd(true),
 	})
 
-	// useRouteCycler({ active: hasReachedPageEnd }) // Change route every 5 seconds
+	useRouteCycler({ active: hasReachedPageEnd }) // Change route every 5 seconds
 
 	const mappedEventsToWeekDays = data?.reduce(
 		(acc, event) => {
