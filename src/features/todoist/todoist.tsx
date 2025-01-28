@@ -10,16 +10,15 @@ import { useState } from "react"
 
 export const Todoist = () => {
 	const { isLoading, projects } = useGetMappedProjectTasks()
-	const [isCycleDone, setIsCycleDone] = useState(false)
+	const [hasReachedPageEnd, setHasReachedPageEnd] = useState(false)
 
 	useRouteCycler({
-		active: isCycleDone,
+		active: hasReachedPageEnd,
 	})
 
 	usePageBasedScrolling({
-		pageDuration: 6000,
 		active: !isLoading,
-		onCycle: () => setIsCycleDone(true),
+		onReachedPageEnd: () => setHasReachedPageEnd(true),
 	})
 
 	return (

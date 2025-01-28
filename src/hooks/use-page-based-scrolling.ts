@@ -3,16 +3,18 @@ import { useCallback, useEffect, useState } from "react"
 
 interface UsePageBasedScrollingProps {
 	scrollContainerId?: string
-	pageDuration: number
+	pageDuration?: number
 	onCycle?: () => void
+	onReachedPageEnd?: () => void
 	active?: boolean
 }
 
 export const usePageBasedScrolling = ({
 	scrollContainerId = SCROLL_CONTAINER_ID,
-	pageDuration,
+	pageDuration = 2000,
 	active,
 	onCycle,
+	onReachedPageEnd,
 }: UsePageBasedScrollingProps) => {
 	const [scrollDirection, setScrollDirection] = useState(1)
 
@@ -24,10 +26,36 @@ export const usePageBasedScrolling = ({
 			return
 		}
 
-		scrollContainer.scrollBy({
-			top: scrollContainer.clientHeight * scrollDirection,
-			behavior: "smooth",
-		})
+		const remainingScrollToBottom =
+			scrollContainer.scrollHeight -
+			scrollContainer.clientHeight * 2 -
+			scrollContainer.scrollTop
+		const remainingScrollToTop =
+			scrollContainer.scrollTop - scrollContainer.clientHeight
+
+		if (scrollDirection === 1 && remainingScrollToBottom < 60) {
+			console.log("scrolling to bottom")
+
+			scrollContainer.scrollTo({
+				top: scrollContainer.scrollHeight,
+				behavior: "smooth",
+			})
+		} else if (scrollDirection === -1 && remainingScrollToTop < 60) {
+			console.log("scrolling to top")
+
+			scrollContainer.scrollTo({
+				top: 0,
+				behavior: "smooth",
+			})
+		} else {
+			console.log("scrolling by half")
+			scrollContainer.scrollBy({
+				top:
+					scrollContainer.clientHeight * scrollDirection -
+					scrollContainer.clientHeight / 2,
+				behavior: "smooth",
+			})
+		}
 
 		if (scrollContainer.scrollTop === 0 && scrollDirection === -1) {
 			onCycle?.()
@@ -38,6 +66,7 @@ export const usePageBasedScrolling = ({
 			scrollContainer.scrollHeight
 		) {
 			setScrollDirection(-1)
+			onReachedPageEnd?.()
 		} else if (scrollContainer.scrollTop <= 0) {
 			setScrollDirection(1)
 		}

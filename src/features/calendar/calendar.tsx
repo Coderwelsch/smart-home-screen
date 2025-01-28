@@ -4,24 +4,22 @@ import { useGetCalendar } from "@/features/calendar/hooks/use-get-calendar"
 import { CalEvent } from "@/features/calendar/types"
 import { WeekdayOverview } from "@/features/calendar/weekday-overview"
 import { usePageBasedScrolling } from "@/hooks/use-page-based-scrolling"
-import { useRouteCycler } from "@/hooks/use-route-cycler"
 import * as React from "react"
 import { useEffect, useRef, useState } from "react"
 
 export const Calendar = () => {
 	const scrollRef = useRef<HTMLDivElement>(null)
-	const [isCycleDone, setIsCycleDone] = useState(false)
+	const [hasReachedPageEnd, setHasReachedPageEnd] = useState(false)
 
 	const { data, isLoading, error } = useGetCalendar()
 	const currentDay = new Date().getDay()
 
 	usePageBasedScrolling({
 		active: !isLoading && !error,
-		pageDuration: 8000,
-		onCycle: () => setIsCycleDone(true),
+		onReachedPageEnd: () => setHasReachedPageEnd(true),
 	})
 
-	useRouteCycler({ active: isCycleDone }) // Change route every 5 seconds
+	// useRouteCycler({ active: hasReachedPageEnd }) // Change route every 5 seconds
 
 	const mappedEventsToWeekDays = data?.reduce(
 		(acc, event) => {
