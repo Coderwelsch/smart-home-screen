@@ -26,6 +26,7 @@ export const usePageBasedScrolling = ({
 			return
 		}
 
+		// TODO: this whole function is a mess, refactor it plzzzzz
 		const remainingScrollToBottom =
 			scrollContainer.scrollHeight -
 			scrollContainer.clientHeight * 2 -
@@ -34,21 +35,16 @@ export const usePageBasedScrolling = ({
 			scrollContainer.scrollTop - scrollContainer.clientHeight
 
 		if (scrollDirection === 1 && remainingScrollToBottom < 60) {
-			console.log("scrolling to bottom")
-
 			scrollContainer.scrollTo({
 				top: scrollContainer.scrollHeight,
 				behavior: "smooth",
 			})
 		} else if (scrollDirection === -1 && remainingScrollToTop < 60) {
-			console.log("scrolling to top")
-
 			scrollContainer.scrollTo({
 				top: 0,
 				behavior: "smooth",
 			})
 		} else {
-			console.log("scrolling by half")
 			scrollContainer.scrollBy({
 				top:
 					scrollContainer.clientHeight * scrollDirection -
