@@ -30,8 +30,6 @@ export const Calendar = () => {
 			// start date week number
 			const [weekYear, weekNumber] = getWeekNumber(startDate)
 
-			console.log("hhahahaa", weekNumber)
-
 			// Skip events that have already passed
 			if (day < currentDay) {
 				return acc
