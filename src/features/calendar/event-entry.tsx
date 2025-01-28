@@ -61,8 +61,6 @@ export const EventEntry = ({
 	const isRunning = startDate < new Date() && endDate > new Date()
 	const isPast = endDate < new Date()
 
-	console.log({ isToday, timeToStart, isRunning, isPast })
-
 	const rtf1 = new Intl.RelativeTimeFormat("en", { style: "short" })
 
 	return (
