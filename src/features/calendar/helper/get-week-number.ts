@@ -1,3 +1,6 @@
+// thanks to Youp Bernoulli:
+// function copied from: https://stackoverflow.com/a/6117889
+
 /* For a given date, get the ISO week number
  *
  * Based on information at:
