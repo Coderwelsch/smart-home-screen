@@ -11,7 +11,7 @@ interface UsePageBasedScrollingProps {
 
 export const usePageBasedScrolling = ({
 	scrollContainerId = SCROLL_CONTAINER_ID,
-	pageDuration = 2000,
+	pageDuration = 8000,
 	active,
 	onCycle,
 	onReachedPageEnd,
