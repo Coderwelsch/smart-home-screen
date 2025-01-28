@@ -18,7 +18,6 @@ export const usePageBasedScrolling = ({
 
 	const scroll = useCallback(() => {
 		const scrollContainer = document.getElementById(scrollContainerId)
-		console.log("trigger scroll", scrollContainer)
 
 		if (!scrollContainer) {
 			console.error(`Element with id ${scrollContainerId} not found`)
@@ -45,8 +44,6 @@ export const usePageBasedScrolling = ({
 	}, [scrollContainerId, onCycle, scrollDirection])
 
 	useEffect(() => {
-		console.log("usePageBasedScrolling", active)
-
 		if (!active) {
 			return
 		}
