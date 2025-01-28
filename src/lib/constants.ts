@@ -1,6 +1,8 @@
 export const IS_DEV = process.env.NODE_ENV === "development"
 
-export const API_URL = `http://localhost:${process.env.REACT_APP_API_PORT || 3001}`
+export const API_PORT = process.env.REACT_APP_API_PORT || 3001
+
+export const API_URL = `http://localhost:${API_PORT}`
 
 export const TODOIST_API_KEY = process.env.REACT_APP_TODOIST_API_KEY || ""
 
