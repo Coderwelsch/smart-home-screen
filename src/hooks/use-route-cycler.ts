@@ -1,3 +1,4 @@
+import { DISABLE_HOME_PAGE } from "@/lib/constants"
 import { routePaths } from "@/lib/routes"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
@@ -12,7 +13,9 @@ export const useRouteCycler = ({
 	active = true,
 }: UseRouteCyclerProps) => {
 	const navigate = useNavigate()
-	const routes = routePaths
+	const routes = DISABLE_HOME_PAGE
+		? routePaths.filter((route) => route !== "/")
+		: routePaths
 
 	useEffect(() => {
 		let currentIndex = routes.indexOf(window.location.pathname)
