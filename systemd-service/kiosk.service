@@ -3,8 +3,8 @@ Description=Start Kiosk Mode
 After=network.target
 
 [Service]
-ExecStart=/home/pi/smart-home-display/systemd-service/start-kiosk.sh
-ExecStop=/home/pi/smart-home-display/systemd-service/stop-kiosk.sh
+ExecStart=/home/pi/smart-home-screen/systemd-service/start-kiosk.sh
+ExecStop=/home/pi/smart-home-screen/systemd-service/stop-kiosk.sh
 Restart=always
 User=pi
 Environment=DISPLAY=:0
