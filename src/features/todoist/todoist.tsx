@@ -6,10 +6,9 @@ import { usePageBasedScrolling } from "@/hooks/use-page-based-scrolling"
 import { useRouteCycler } from "@/hooks/use-route-cycler"
 
 import * as React from "react"
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 
 export const Todoist = () => {
-	const scrollRef = useRef<HTMLDivElement>(null)
 	const { isLoading, projects } = useGetMappedProjectTasks()
 	const [isCycleDone, setIsCycleDone] = useState(false)
 
@@ -18,20 +17,13 @@ export const Todoist = () => {
 	})
 
 	usePageBasedScrolling({
-		container: scrollRef.current,
 		pageDuration: 6000,
 		active: !isLoading,
 		onCycle: () => setIsCycleDone(true),
 	})
 
-	useEffect(() => {
-		if (scrollRef.current) {
-			scrollRef.current.scrollTop = 0
-		}
-	}, [scrollRef])
-
 	return (
-		<Dashboard loading={isLoading} ref={scrollRef}>
+		<Dashboard loading={isLoading}>
 			<DashboardBody>
 				<h1 className="mb-4 text-2xl font-bold text-gray-200">ToDos</h1>
 

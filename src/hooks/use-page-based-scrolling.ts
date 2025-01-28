@@ -1,41 +1,52 @@
+import { SCROLL_CONTAINER_ID } from "@/lib/constants"
 import { useCallback, useEffect, useState } from "react"
 
 interface UsePageBasedScrollingProps {
-	container: HTMLElement | null
+	scrollContainerId?: string
 	pageDuration: number
 	onCycle?: () => void
 	active?: boolean
 }
 
-export const usePageBasedScrolling = (props: UsePageBasedScrollingProps) => {
-	const { container, pageDuration, active, onCycle } = props
+export const usePageBasedScrolling = ({
+	scrollContainerId = SCROLL_CONTAINER_ID,
+	pageDuration,
+	active,
+	onCycle,
+}: UsePageBasedScrollingProps) => {
 	const [scrollDirection, setScrollDirection] = useState(1)
 
 	const scroll = useCallback(() => {
-		if (!container) {
+		const scrollContainer = document.getElementById(scrollContainerId)
+		console.log("trigger scroll", scrollContainer)
+
+		if (!scrollContainer) {
+			console.error(`Element with id ${scrollContainerId} not found`)
 			return
 		}
 
-		container.scrollBy({
-			top: container.clientHeight * scrollDirection,
+		scrollContainer.scrollBy({
+			top: scrollContainer.clientHeight * scrollDirection,
 			behavior: "smooth",
 		})
 
-		if (container.scrollTop === 0 && scrollDirection === -1) {
+		if (scrollContainer.scrollTop === 0 && scrollDirection === -1) {
 			onCycle?.()
 		}
 
 		if (
-			container.scrollTop + container.clientHeight >=
-			container.scrollHeight
+			scrollContainer.scrollTop + scrollContainer.clientHeight >=
+			scrollContainer.scrollHeight
 		) {
 			setScrollDirection(-1)
-		} else if (container.scrollTop <= 0) {
+		} else if (scrollContainer.scrollTop <= 0) {
 			setScrollDirection(1)
 		}
-	}, [container, onCycle, scrollDirection])
+	}, [scrollContainerId, onCycle, scrollDirection])
 
 	useEffect(() => {
+		console.log("usePageBasedScrolling", active)
+
 		if (!active) {
 			return
 		}

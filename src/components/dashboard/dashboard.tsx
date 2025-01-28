@@ -1,7 +1,11 @@
 import IconCalendar2DateFill from "@/components/icons/calendar-date-fill"
+import {
+	CALENDAR_WEBCAL_URLS,
+	SCROLL_CONTAINER_ID,
+	TODOIST_API_KEY,
+} from "@/lib/constants"
 import * as React from "react"
 import { ForwardedRef, forwardRef, ReactNode } from "react"
-import { CALENDAR_WEBCAL_URLS, TODOIST_API_KEY } from "@/lib/constants"
 import IconHome from "../icons/home"
 import IconToDos from "../icons/todos"
 import { LoadingIndicator } from "../loading-indicator/loading-indicator"
@@ -50,6 +54,7 @@ const InternalDashboard = (
 				</div>
 
 				<div
+					id={SCROLL_CONTAINER_ID}
 					className={
 						"relative grow overflow-x-hidden overflow-y-scroll"
 					}

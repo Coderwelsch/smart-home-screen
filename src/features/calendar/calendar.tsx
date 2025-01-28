@@ -17,7 +17,6 @@ export const Calendar = () => {
 
 	usePageBasedScrolling({
 		active: !isLoading && !error,
-		container: scrollRef.current,
 		pageDuration: 8000,
 		onCycle: () => setIsCycleDone(true),
 	})

@@ -4,7 +4,7 @@ import { useRouteCycler } from "@/hooks/use-route-cycler"
 import * as React from "react"
 
 export const Home = () => {
-	useRouteCycler({ interval: 5000 }) // Change route every 5 seconds
+	useRouteCycler({ interval: 2000 }) // Change route every 5 seconds
 
 	return (
 		<Dashboard>

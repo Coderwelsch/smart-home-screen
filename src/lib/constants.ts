@@ -16,3 +16,5 @@ export const CALENDAR_WEBCAL_COLORS = (
 export const CALENDAR_WEBCAL_NAMES = (
 	process.env.REACT_APP_CALENDAR_WEBCAL_NAMES || ""
 ).split(",")
+
+export const SCROLL_CONTAINER_ID = "scroll-container"
