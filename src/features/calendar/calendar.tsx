@@ -1,5 +1,6 @@
 import { DashboardBody } from "@/components/dashboard/body"
 import { Dashboard } from "@/components/dashboard/dashboard"
+import { getWeekNumber } from "@/features/calendar/helper/get-week-number"
 import { useGetCalendar } from "@/features/calendar/hooks/use-get-calendar"
 import { CalEvent } from "@/features/calendar/types"
 import { WeekdayOverview } from "@/features/calendar/weekday-overview"
@@ -22,27 +23,35 @@ export const Calendar = () => {
 
 	useRouteCycler({ active: hasReachedPageEnd }) // Change route every 5 seconds
 
-	const mappedEventsToWeekDays = data?.reduce(
+	const mappedEvents = data?.reduce(
 		(acc, event) => {
-			const day = new Date(event.startDate).getDay()
+			const startDate = new Date(event.startDate)
+			const day = startDate.getDay()
+			// start date week number
+			const [weekYear, weekNumber] = getWeekNumber(startDate)
+
+			console.log("hhahahaa", weekNumber)
 
 			// Skip events that have already passed
 			if (day < currentDay) {
 				return acc
 			}
 
-			if (!acc[day]) {
-				acc[day] = []
+			if (!acc[weekNumber]) {
+				acc[weekNumber] = {}
 			}
 
-			acc[day].push(event)
+			if (!acc[weekNumber][day]) {
+				acc[weekNumber][day] = []
+			}
+
+			acc[weekNumber][day].push(event)
 
 			return acc
 		},
-		{} as Record<number, CalEvent[]>,
+		{} as Record<number, Record<number, CalEvent[]>>,
 	)
-
-	const mappedEventsArray = Object.entries(mappedEventsToWeekDays || {})
+	const entries = mappedEvents ? Object.entries(mappedEvents) : []
 
 	useEffect(() => {
 		if (scrollRef.current) {
@@ -67,14 +76,26 @@ export const Calendar = () => {
 					</div>
 				)}
 
-				<div className={"flex flex-col gap-4"}>
-					{mappedEventsArray.map(([day, events], index) => (
-						<WeekdayOverview
-							key={index}
-							day={parseInt(day)}
-							events={events}
-						/>
-					))}
+				<div className={"flex flex-col gap-6"}>
+					{entries.map(([week, weekData], index) => {
+						return Object.entries(weekData).map(([day, events]) => (
+							<>
+								<WeekdayOverview
+									key={`${week}-${day}`}
+									week={parseInt(week)}
+									day={parseInt(day)}
+									events={events}
+								/>
+
+								{index !== entries.length - 1 ? (
+									<div
+										key={`${week}-${day}-divider`}
+										className={"border-b border-gray-700"}
+									/>
+								) : null}
+							</>
+						))
+					})}
 				</div>
 			</DashboardBody>
 		</Dashboard>

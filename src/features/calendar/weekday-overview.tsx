@@ -1,20 +1,28 @@
 import { EventEntry } from "@/features/calendar/event-entry"
+import { getWeekNumber } from "@/features/calendar/helper/get-week-number"
 import { CalEvent } from "@/features/calendar/types"
 import { classNames } from "@/lib"
 import * as React from "react"
 
 interface WeekdayOverviewProps {
 	day: number
+	week: number
 	events: CalEvent[]
 }
 
-export const WeekdayOverview = ({ day, events }: WeekdayOverviewProps) => {
+export const WeekdayOverview = ({
+	day,
+	week,
+	events,
+}: WeekdayOverviewProps) => {
 	const weekDay = new Date(events[0].startDate).toLocaleString("en-US", {
 		weekday: "long",
 	})
 
-	const isToday = new Date().getDay() === day
-	const isTomorrow = new Date().getDay() + 1 === day
+	const isThisWeek = getWeekNumber(new Date())[1] === week
+	const isNextWeek = getWeekNumber(new Date())[1] + 1 === week
+	const isToday = new Date().getDay() === day && isThisWeek
+	const isTomorrow = new Date().getDay() + 1 === day && isThisWeek
 
 	const sortedEvents = events.sort((a, b) => {
 		// sort past events to the bottom otherwise sort by start date
@@ -37,7 +45,13 @@ export const WeekdayOverview = ({ day, events }: WeekdayOverviewProps) => {
 			)}
 		>
 			<h2 className={"text-sm font-bold text-gray-400"}>
-				{isToday ? "Today" : isTomorrow ? "Tomorrow" : weekDay}
+				{isToday ? "Today" : null}
+
+				{isTomorrow ? "Tomorrow" : null}
+
+				{!isToday && !isTomorrow && isThisWeek ? `${weekDay}` : null}
+
+				{isNextWeek ? `${weekDay} (next week)` : null}
 			</h2>
 
 			{sortedEvents.map((event, index) => (
