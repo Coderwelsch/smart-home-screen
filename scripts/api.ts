@@ -1,17 +1,17 @@
-import dotenv from "dotenv"
-import http, { IncomingMessage, ServerResponse } from "http"
-import path from "node:path"
+import * as dotenv from "dotenv"
+import { createServer, IncomingMessage, ServerResponse } from "http"
+import * as path from "node:path"
 import { URL } from "node:url"
-import url from "url"
+import * as url from "url"
 import { getLatestCalendarData } from "./calendar"
 
+// @ts-ignore
 const __dirname = new URL(".", import.meta.url).pathname
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") })
 
 // eslint-disable-next-line no-undef
 const PORT = process.env.REACT_APP_API_PORT || 3001
-// eslint-disable-next-line no-undef
 
 const requestHandler = (req: IncomingMessage, res: ServerResponse) => {
 	if (!req.url) {
@@ -35,7 +35,7 @@ const requestHandler = (req: IncomingMessage, res: ServerResponse) => {
 	}
 }
 
-const server = http.createServer(requestHandler)
+const server = createServer(requestHandler)
 
 server.listen(PORT, () => {
 	console.log(`API is listening on http://localhost:${PORT}`)
