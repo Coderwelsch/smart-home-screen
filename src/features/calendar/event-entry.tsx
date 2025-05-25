@@ -1,7 +1,7 @@
 import { useGetCalendarMeta } from "@/features/calendar/hooks/use-get-calendar-meta"
 import { CalEvent } from "@/features/calendar/types"
 import { classNames } from "@/lib"
-import { ReactNode } from "react"
+import { Fragment, ReactNode } from "react"
 
 export const eventEntryStyles = {
 	red: "text-red-300 bg-red-500/10 border-red-500/40",
@@ -41,16 +41,22 @@ export const EventEntry = ({
 	calendar,
 	notes,
 }: EventEntryProps) => {
-	const startTime = startDate.toLocaleString("en-US", {
+	const startTime = startDate.toLocaleString("en-GB", {
 		hour: "numeric",
 		minute: "numeric",
-		hour12: true,
+		hour12: false,
 	})
 
-	const endTime = endDate.toLocaleString("en-US", {
+	const startDateLocaleString = startDate.toLocaleString("en-GB", {
+		day: "numeric",
+		month: "numeric",
+		year: "numeric",
+	})
+
+	const endTime = endDate.toLocaleString("en-GB", {
 		hour: "numeric",
 		minute: "numeric",
-		hour12: true,
+		hour12: false,
 	})
 
 	const calMetaData = useGetCalendarMeta(calendar || "")
@@ -75,7 +81,7 @@ export const EventEntry = ({
 				isPast && "opacity-40",
 			)}
 		>
-			{isToday && (
+			{isToday ? (
 				<>
 					{isRunning ? (
 						<div className={"flex flex-row items-center gap-2"}>
@@ -88,7 +94,7 @@ export const EventEntry = ({
 									"font-mono text-sm font-semibold text-red-100"
 								}
 							>
-								Now running
+								Now running {allDay ? "(all day)" : null}
 							</h4>
 						</div>
 					) : null}
@@ -106,20 +112,40 @@ export const EventEntry = ({
 						</h4>
 					)}
 				</>
+			) : (
+				<Fragment>
+					{/* display start time	*/}
+					<h4
+						className={classNames(
+							"font-mono text-sm font-semibold",
+							isRunning ? "text-red-100" : "text-blue-400",
+						)}
+					>
+						{isRunning
+							? "Running now"
+							: allDay
+								? startDateLocaleString + " (all day)"
+								: startDateLocaleString}
+					</h4>
+				</Fragment>
 			)}
 
 			<div className={"gap flex flex-col"}>
 				<h3 className={"text-lg font-bold text-gray-200"}>{summary}</h3>
 
-				{!allDay && (
+				{!allDay ? (
 					<div className={"font-mono text-sm text-gray-400"}>
-						{startTime !== endTime ? (
+						{startDate !== endDate ? (
 							<>
-								{startTime} – {endTime}
+								{/*  add optional string if ending is tomorrow */}
+								{startTime} – {endTime}{" "}
+								{endDate.getDay() !== startDate.getDay()
+									? "(ends tomorrow)"
+									: null}
 							</>
 						) : null}
 					</div>
-				)}
+				) : null}
 			</div>
 
 			{notes && (
@@ -138,7 +164,7 @@ export const EventEntry = ({
 			{calendar && (
 				<div
 					className={classNames(
-						"absolute bottom-4 right-4 rounded-md px-1.5 py-1 font-mono text-xs",
+						"absolute bottom-4 right-4 rounded-md border px-1.5 py-1 font-mono text-xs",
 						themeStyles,
 					)}
 				>
