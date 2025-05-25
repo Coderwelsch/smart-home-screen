@@ -70,6 +70,8 @@ On crash the app will automatically restart by the help of `nodemon`.
 
 To run the built app on a Raspberry Pi or any other device you can setup a systemd service. You can use the example service files from the `systemd-service` directory.
 
+Please note that the `.sh` scripts under `./systemd-service` directory have absolute urls pointing to `/home/pi/smart-home-screen`, so you need to adjust them according to your setup and directory.
+
 1. Copy the `kiosk.service` file to `/etc/systemd/system/`
 2. Make sure to setup the systemd paths correctly in the `kiosk.service` file
 3. Run `sudo systemctl enable kiosk.service` to enable the service
