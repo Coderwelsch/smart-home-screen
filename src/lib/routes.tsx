@@ -17,7 +17,7 @@ const RedirectRoute: FC = () => {
 		} else {
 			throw new Error("No more routes defined")
 		}
-	}, [])
+	}, [navigate])
 
 	return null
 }
