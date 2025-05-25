@@ -15,7 +15,7 @@ export const WeekdayOverview = ({
 	week,
 	events,
 }: WeekdayOverviewProps) => {
-	const weekDay = new Date(events[0].startDate).toLocaleString("en-US", {
+	const weekDay = new Date(events[0].startDate).toLocaleString("en-GB", {
 		weekday: "long",
 	})
 
@@ -37,13 +37,7 @@ export const WeekdayOverview = ({
 	})
 
 	return (
-		<div
-			key={day}
-			className={classNames(
-				"flex flex-col gap-4",
-				// !isToday && !isTomorrow && "opacity-25",
-			)}
-		>
+		<div key={day} className={classNames("flex flex-col gap-4")}>
 			<h2 className={"text-sm font-bold text-gray-400"}>
 				{isToday ? "Today" : null}
 
