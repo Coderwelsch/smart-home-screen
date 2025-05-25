@@ -7,7 +7,7 @@ import { WeekdayOverview } from "@/features/calendar/weekday-overview"
 import { usePageBasedScrolling } from "@/hooks/use-page-based-scrolling"
 import { useRouteCycler } from "@/hooks/use-route-cycler"
 import * as React from "react"
-import { useEffect, useRef, useState } from "react"
+import { Fragment, useEffect, useRef, useState } from "react"
 
 export const Calendar = () => {
 	const scrollRef = useRef<HTMLDivElement>(null)
@@ -26,9 +26,10 @@ export const Calendar = () => {
 	const mappedEvents = data?.reduce(
 		(acc, event) => {
 			const startDate = new Date(event.startDate)
-			const day = startDate.getDay()
+			// Convert Sunday (0) to 7 for easier handling
+			const day = startDate.getDay() === 0 ? 7 : startDate.getDay()
 			// start date week number
-			const [weekYear, weekNumber] = getWeekNumber(startDate)
+			const [_weekYear, weekNumber] = getWeekNumber(startDate)
 
 			// Skip events that have already passed
 			if (day < currentDay) {
@@ -44,6 +45,15 @@ export const Calendar = () => {
 			}
 
 			acc[weekNumber][day].push(event)
+
+			// TODO: may be pretty slow if there are many events
+			// Sort events by start date
+			acc[weekNumber][day].sort((a, b) => {
+				return (
+					new Date(a.startDate).getTime() -
+					new Date(b.startDate).getTime()
+				)
+			})
 
 			return acc
 		},
@@ -76,23 +86,27 @@ export const Calendar = () => {
 
 				<div className={"flex flex-col gap-6"}>
 					{entries.map(([week, weekData], index) => {
-						return Object.entries(weekData).map(([day, events]) => (
-							<>
-								<WeekdayOverview
-									key={`${week}-${day}`}
-									week={parseInt(week)}
-									day={parseInt(day)}
-									events={events}
-								/>
-
-								{index !== entries.length - 1 ? (
-									<div
-										key={`${week}-${day}-divider`}
-										className={"border-b border-gray-700"}
+						return Object.entries(weekData).map(([day, events]) => {
+							return (
+								<Fragment key={`${week}-${day}-${index}`}>
+									<WeekdayOverview
+										key={`${week}-${day}`}
+										week={parseInt(week)}
+										day={parseInt(day)}
+										events={events}
 									/>
-								) : null}
-							</>
-						))
+
+									{index !== entries.length - 1 ? (
+										<div
+											key={`${week}-${day}-divider`}
+											className={
+												"border-b border-gray-700"
+											}
+										/>
+									) : null}
+								</Fragment>
+							)
+						})
 					})}
 				</div>
 			</DashboardBody>
