@@ -15,6 +15,7 @@ This project includes the following modules which you can enable or disable by s
   - shows all uncompleted tasks and sub tasks
 - Calendar (ICS) Overview
   - shows events of the next 7 days
+- Left Navigation Bar will hide automatically when only one «module» is present
 
 Currently the app automatically rotates through the modules every ~ 30 seconds and scrolls through the content if it is too long to fit on the screen.
 
