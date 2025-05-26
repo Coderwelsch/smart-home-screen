@@ -48,23 +48,50 @@ export const getLatestCalendarData = async (): Promise<CalendarEvent[]> => {
 	const today = new Date().setHours(0, 0, 0, 0)
 	const nextWeek = new Date().setDate(new Date().getDate() + 7)
 
-	const filtered = parsedData.filter((event) => {
+	const filtered = parsedData.reduce((acc, event) => {
 		const eventStart = event.startDate.getTime()
 		const eventEnd = event.endDate.getTime()
 
-		return (
-			(!yesterday || eventStart >= yesterday) &&
-			(!nextWeek || eventEnd <= nextWeek)
+		// check for duplicates
+		const isDuplicate = acc.some(
+			(existingEvent) =>
+				existingEvent.summary === event.summary &&
+				existingEvent.startDate.getTime() === eventStart &&
+				existingEvent.endDate.getTime() === eventEnd &&
+				existingEvent.calendar === event.calendar,
 		)
-	})
+
+		if (
+			(!yesterday || eventStart >= yesterday) &&
+			(!nextWeek || eventEnd <= nextWeek) &&
+			!isDuplicate
+		) {
+			acc.push(event)
+		}
+
+		return acc
+	}, [] as CalendarEvent[])
 
 	if (filtered.length < 7) {
 		const moreData = parsedData
-			.filter((event) => {
+			.reduce((acc, event) => {
 				const eventStart = event.startDate.getTime()
+				const eventEnd = event.endDate.getTime()
 
-				return eventStart >= today
-			})
+				const isDuplicate = acc.some(
+					(existingEvent) =>
+						existingEvent.summary === event.summary &&
+						existingEvent.startDate.getTime() === eventStart &&
+						existingEvent.endDate.getTime() === eventEnd &&
+						existingEvent.calendar === event.calendar,
+				)
+
+				if (eventStart >= today && !isDuplicate) {
+					acc.push(event)
+				}
+
+				return acc
+			}, [] as CalendarEvent[])
 			.sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
 
 		return moreData
