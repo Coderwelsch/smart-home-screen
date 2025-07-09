@@ -16,6 +16,8 @@ export const Calendar = () => {
 	const { data, isLoading, error } = useGetCalendar()
 	const currentDay = new Date().getDay()
 
+	const [currentTime, setCurrentTime] = useState(new Date())
+
 	usePageBasedScrolling({
 		active: !isLoading && !error,
 		onReachedPageEnd: () => setHasReachedPageEnd(true),
@@ -23,7 +25,7 @@ export const Calendar = () => {
 
 	useRouteCycler({ active: hasReachedPageEnd }) // Change route every 5 seconds
 
-	const mappedEvents = data?.reduce(
+	const mappedEvents = data.reduce(
 		(acc, event) => {
 			const startDate = new Date(event.startDate)
 			// Convert Sunday (0) to 7 for easier handling
@@ -59,32 +61,82 @@ export const Calendar = () => {
 		},
 		{} as Record<number, Record<number, CalEvent[]>>,
 	)
+
 	const entries = mappedEvents ? Object.entries(mappedEvents) : []
 
+	// scroll to top on mount
 	useEffect(() => {
 		if (scrollRef.current) {
 			scrollRef.current.scrollTop = 0
 		}
 	}, [])
 
-	return (
-		<Dashboard loading={isLoading && !error} ref={scrollRef}>
-			<DashboardBody>
-				<h1 className="mb-4 text-2xl font-bold text-gray-200">
-					Calendar
-				</h1>
+	// Update current time every second
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentTime(new Date())
+		}, 1000)
 
-				{error && (
-					<div
+		return () => clearInterval(interval)
+	}, [])
+
+	return (
+		<Dashboard loading={isLoading} ref={scrollRef}>
+			<DashboardBody className={"p-0"}>
+				<div
+					className={
+						"sticky left-0 top-0 z-10 flex w-full flex-row items-center justify-between border-b border-gray-700 bg-gray-800 p-6"
+					}
+				>
+					<h1 className="text-2xl font-bold text-gray-200">
+						Calendar
+					</h1>
+
+					{/* current time */}
+					<h2
 						className={
-							"rounded-lg border-2 border-red-500 bg-red-500/20 px-4 py-2 text-white"
+							"flex flex-col items-end justify-center gap-0"
 						}
 					>
-						<p className={"font-bold"}>{error.message}</p>
+						<span
+							className={
+								"font-mono text-xl font-bold text-gray-200"
+							}
+						>
+							{currentTime.toLocaleTimeString([], {
+								hour: "2-digit",
+							})}
+
+							<span className={"animate-pulse"}>:</span>
+
+							{currentTime.toLocaleTimeString([], {
+								minute: "2-digit",
+							})}
+						</span>
+
+						<span className={"text-sm text-gray-300"}>
+							{currentTime.toLocaleDateString([], {
+								weekday: "short",
+								month: "long",
+								day: "numeric",
+							})}{" "}
+						</span>
+					</h2>
+				</div>
+
+				{error && (
+					<div className={"p-6"}>
+						<div
+							className={
+								"rounded-lg border-2 border-red-500 bg-red-500/20 px-4 py-2 text-white"
+							}
+						>
+							<p className={"font-bold"}>{error.message}</p>
+						</div>
 					</div>
 				)}
 
-				<div className={"flex flex-col gap-6"}>
+				<div className={"flex flex-col gap-6 p-6"}>
 					{entries.map(([week, weekData], index) => {
 						return Object.entries(weekData).map(([day, events]) => {
 							return (

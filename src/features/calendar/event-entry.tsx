@@ -72,7 +72,8 @@ export const EventEntry = ({
 	return (
 		<div
 			className={classNames(
-				"relative flex flex-col rounded-lg border border-neutral-300/10 bg-neutral-300/10 px-4 py-4",
+				"relative flex flex-col gap-1 rounded-lg border border-neutral-300/10 bg-neutral-300/10 px-4 py-4",
+				calendar ? "pr-24" : "",
 				isRunning && "border-red-500 bg-red-500/10",
 				!isRunning &&
 					!isPast &&
@@ -111,51 +112,55 @@ export const EventEntry = ({
 							)}
 						</h4>
 					)}
+
+					{!allDay ? (
+						<div className={"text-md font-mono text-gray-400"}>
+							{startDate !== endDate ? (
+								<>
+									{/*  add optional string if ending is tomorrow */}
+									{startTime} – {endTime}{" "}
+									{endDate.getDay() !== startDate.getDay()
+										? "(ends next day)"
+										: null}
+								</>
+							) : null}
+						</div>
+					) : null}
 				</>
 			) : (
 				<Fragment>
 					{/* display start time	*/}
 					<h4
 						className={classNames(
-							"font-mono text-sm font-semibold",
+							"text-md font-mono font-semibold",
 							isRunning ? "text-red-100" : "text-blue-400",
 						)}
 					>
 						{isRunning
 							? "Running now"
 							: allDay
-								? startDateLocaleString + " (all day)"
-								: startDateLocaleString}
+								? " (all day)"
+								: `${startTime} – ${endTime}`}
 					</h4>
 				</Fragment>
 			)}
 
 			<div className={"gap flex flex-col"}>
 				<h3 className={"text-lg font-bold text-gray-200"}>{summary}</h3>
-
-				{!allDay ? (
-					<div className={"font-mono text-sm text-gray-400"}>
-						{startDate !== endDate ? (
-							<>
-								{/*  add optional string if ending is tomorrow */}
-								{startTime} – {endTime}{" "}
-								{endDate.getDay() !== startDate.getDay()
-									? "(ends tomorrow)"
-									: null}
-							</>
-						) : null}
-					</div>
-				) : null}
 			</div>
 
 			{notes && (
 				<p
 					className={classNames(
-						"text-md text-gray-500",
+						"text-md font-mono text-gray-500",
 						isRunning && "text-red-50",
 					)}
 				>
-					{notes}
+					{notes.length > 100 ? (
+						<span className={"italic"}>{notes.slice(0, 100)}…</span>
+					) : (
+						notes
+					)}
 				</p>
 			)}
 
