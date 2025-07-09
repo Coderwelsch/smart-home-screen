@@ -27,6 +27,13 @@ export const getLatestCalendarData = async (): Promise<CalendarEvent[]> => {
 	const parsedData = await Promise.all(
 		webcalUrls.map(async (url, index) => {
 			const response = await fetch(url)
+
+			if (!response.ok) {
+				throw new Error(
+					`Failed to fetch calendar data from ${url}: ${response.statusText}`,
+				)
+			}
+
 			const data = await response.text()
 			const calName = webcalNames[index] || "Unknown"
 
@@ -42,7 +49,11 @@ export const getLatestCalendarData = async (): Promise<CalendarEvent[]> => {
 				}
 			})
 		}),
-	).then((data) => data.flat())
+	)
+		.then((data) => data.flat())
+		.catch((error) => {
+			throw new Error(error.message || "Failed to parse calendar data")
+		})
 
 	const yesterday = new Date().setDate(new Date().getDate() - 1)
 	const today = new Date().setHours(0, 0, 0, 0)
@@ -61,6 +72,7 @@ export const getLatestCalendarData = async (): Promise<CalendarEvent[]> => {
 				existingEvent.calendar === event.calendar,
 		)
 
+		// Filter events based on the date range and duplicates
 		if (
 			(!yesterday || eventStart >= yesterday) &&
 			(!nextWeek || eventEnd <= nextWeek) &&
