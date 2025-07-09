@@ -23,12 +23,24 @@ const requestHandler = (req: IncomingMessage, res: ServerResponse) => {
 	const { pathname } = url.parse(req.url)
 
 	if (pathname === "/calendar") {
-		getLatestCalendarData().then((data) => {
-			res.setHeader("Content-Type", "application/json")
-			res.setHeader("Access-Control-Allow-Origin", "*")
+		getLatestCalendarData()
+			.then((data) => {
+				res.setHeader("Content-Type", "application/json")
+				res.setHeader("Access-Control-Allow-Origin", "*")
 
-			res.end(JSON.stringify(data))
-		})
+				res.end(JSON.stringify(data))
+			})
+			.catch((err) => {
+				res.setHeader("Content-Type", "application/json")
+				res.setHeader("Access-Control-Allow-Origin", "*")
+				res.statusCode = 500
+				res.end(
+					JSON.stringify({
+						error: "Failed to fetch calendar data",
+						details: err.message,
+					}),
+				)
+			})
 	} else {
 		res.statusCode = 404
 		res.end("Not Found")
@@ -41,5 +53,10 @@ server.listen(PORT, () => {
 	console.log(`API is listening on http://localhost:${PORT}`)
 })
 
-// TODO: remove this
 getLatestCalendarData()
+	.then((data) => {
+		console.log("Latest calendar data fetched:", data.length, "events")
+	})
+	.catch((err) => {
+		console.error(err)
+	})
