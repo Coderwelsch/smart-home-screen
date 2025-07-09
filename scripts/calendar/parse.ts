@@ -53,7 +53,7 @@ const getRecurringEventIterations = (vevents: ical.Component[]): CalEvent[] => {
 	}, [] as CalEvent[])
 }
 
-export const parse = (calData: string) => {
+export const parse = (calData: string): CalEvent[] => {
 	const jcalData = ical.parse(calData)
 	const comp = new ical.Component(jcalData)
 	const vevents = comp.getAllSubcomponents("vevent")
@@ -66,6 +66,7 @@ export const parse = (calData: string) => {
 			summary: event.summary,
 			startDate: event.startDate.toJSDate(),
 			endDate: event.endDate.toJSDate(),
+			notes: event.description,
 		}
 	})
 
