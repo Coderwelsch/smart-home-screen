@@ -47,12 +47,6 @@ export const EventEntry = ({
 		hour12: false,
 	})
 
-	const startDateLocaleString = startDate.toLocaleString("en-GB", {
-		day: "numeric",
-		month: "numeric",
-		year: "numeric",
-	})
-
 	const endTime = endDate.toLocaleString("en-GB", {
 		hour: "numeric",
 		minute: "numeric",

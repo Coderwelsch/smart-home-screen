@@ -31,6 +31,7 @@ export const Calendar = () => {
 			// Convert Sunday (0) to 7 for easier handling
 			const day = startDate.getDay() === 0 ? 7 : startDate.getDay()
 			// start date week number
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const [_weekYear, weekNumber] = getWeekNumber(startDate)
 
 			// Skip events that have already passed
