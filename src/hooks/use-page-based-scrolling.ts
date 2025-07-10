@@ -66,7 +66,7 @@ export const usePageBasedScrolling = ({
 		} else if (scrollContainer.scrollTop <= 0) {
 			setScrollDirection(1)
 		}
-	}, [scrollContainerId, onCycle, scrollDirection])
+	}, [scrollContainerId, scrollDirection, onCycle, onReachedPageEnd])
 
 	useEffect(() => {
 		if (!active) {
